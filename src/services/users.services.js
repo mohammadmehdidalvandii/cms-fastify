@@ -5,6 +5,11 @@ async function register(name , email , phone , password , role) {
     return user
 }
 
+async function getAllUsers() {
+    const user = await UserModel.find();
+    return user
+}
+
 async function getUserByEmail(email){
     const user = await UserModel.findOne({email});
     return user
@@ -22,6 +27,7 @@ async function login(email , password) {
 
 module.exports = {
     register,
+    getAllUsers,
     getUserByEmail,
     getUserByID,
     login,
