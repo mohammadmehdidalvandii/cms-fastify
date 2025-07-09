@@ -22,7 +22,7 @@ const schema = new mongoose.Schema({
         minLength:6,
         required:true,
     },
-    role:{
+    roles:{
         type:String,
         required:true,
     },
