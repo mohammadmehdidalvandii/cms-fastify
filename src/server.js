@@ -2,12 +2,12 @@ const fastify = require('fastify')({logger:true});
 const dotenv = require('dotenv').config();
 const connectToDB = require('./config/db');
 // import Routing
-
+const usersRouter = require('./router/users.router');
 // Connections database 
 connectToDB();
 
 // router 
-
+fastify.register(usersRouter)
 
 // server
 const server = async ()=>{
