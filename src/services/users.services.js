@@ -1,7 +1,7 @@
 const UserModel = require('../models/Users')
 
-async function register(name , email , phone , password , roles) {
-    const user = await UserModel.create({name , email , phone , password , roles});
+async function register(name , email , phone , password) {
+    const user = await UserModel.create(name , email , phone , password );
     return user
 }
 
@@ -11,7 +11,7 @@ async function getAllUsers() {
 }
 
 async function getUserByEmail(email){
-    const user = await UserModel.findOne({email});
+    const user = await UserModel.findOne(email);
     return user
 }
 
