@@ -8,7 +8,6 @@ const schema = new mongoose.Schema({
     },
     email:{
         type:String,
-        format:"email",
         required:true,
     },
     phone:{
