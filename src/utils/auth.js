@@ -11,7 +11,7 @@ const comparePassword = async(password , hashedPassword)=>{
     return isValidPassword
 }
 
-const generateToken = ({data})=>{
+const generateToken = (data)=>{
     const secretToken = process.env.TOKEN;
     if(!secretToken) throw new Error("Access Token is not Define");
     const token = sign(data ,  secretToken , {expiresIn:'1h'});
