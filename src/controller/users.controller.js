@@ -75,8 +75,9 @@ async function loginUser (req , reply){
       
                 // create Token
                 const token = generateToken({email , phone:existUser.phone , name:existUser.name , roles:existUser.roles});
-                console.log("token =>" , token)
-                reply.code(200).send({
+                reply.code(200)
+                .header('Authorization',`Bearer ${token}`)
+                .send({
                     statusCode:200,
                     message:"Login is successfully ✅",
                     data: {token}
@@ -96,7 +97,28 @@ async function loginUser (req , reply){
     }
 }
 
+async function getAll (req , reply){
+    try{
+        const users = await UserServices.getAllUsers()
+        if(users){
+            return reply.code(200).send({
+                statusCode:200,
+                message:"Get all users is Successfully ✅",
+                data:users
+            })
+        }
+    }catch(error){
+        console.log("Error get all users =>", error);
+        return reply.code(500).send({
+            statusCode:500,
+            message:"Server Internal Get All Users =>",
+            error:error.message,
+        })
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
+    getAll,
 }
