@@ -1,6 +1,6 @@
 const UserServices = require('../services/users.services');
 const {role} = require('../utils/constants');
-const  {generateToken , hashedPassword} = require('../utils/auth');
+const  {generateToken , hashedPassword , comparePassword} = require('../utils/auth');
 
 
 async function registerUser (req , reply){
@@ -60,6 +60,43 @@ async function registerUser (req , reply){
     }
 }
 
+async function loginUser (req , reply){
+    try{
+        const {email , password} = req.body;
+        // exit password 
+        const existUser = await UserServices.getUserByEmail(email);
+        if(!existUser) return reply.code(400).send("user is not found ❌")
+
+        // user checked password
+        const isMatchPassword = await comparePassword(password , existUser.password);
+        if(isMatchPassword){
+        
+            const login = await UserServices.login(email , password);
+      
+                // create Token
+                const token = generateToken({email , phone:existUser.phone , name:existUser.name , roles:existUser.roles});
+                console.log("token =>" , token)
+                reply.code(200).send({
+                    statusCode:200,
+                    message:"Login is successfully ✅",
+                    data: {token}
+                })
+            
+        }else{
+            return reply.code(400).send("Invalid Password ❌")
+        }
+
+    }catch(error){
+        console.log("Error Login User =>" , error);
+        return reply.code(500).send({
+            statusCode:500,
+            message:"Server Internal Login User =>",
+            error:error.message,
+        })
+    }
+}
+
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser,
 }

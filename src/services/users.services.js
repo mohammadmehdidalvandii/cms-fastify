@@ -20,8 +20,8 @@ async function getUserByID (id){
     return user
 }
 
-async function login(email , password) {
-    const user = await UserModel.findOneAndUpdate(email , password);
+async function login({email , password}) {
+    const user = await UserModel.findOne(email);
     return user
 }
 
