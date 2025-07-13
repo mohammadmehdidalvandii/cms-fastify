@@ -6,7 +6,7 @@ async function createUser(data) {
 }
 
 async function getAllUsers() {
-    const user = await UserModel.find();
+    const user = await UserModel.find().select('-password');
     return user
 }
 
