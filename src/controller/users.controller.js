@@ -99,6 +99,7 @@ async function loginUser (req , reply){
 
 async function getAll (req , reply){
     try{
+        console.log("user=>" , req.user)
         const users = await UserServices.getAllUsers()
         if(users){
             return reply.code(200).send({
