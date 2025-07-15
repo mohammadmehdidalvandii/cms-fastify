@@ -34,6 +34,26 @@ async function createFood (req , reply){
     }
 }
 
+async function getAllFoods (req , reply){
+    try{
+        const foods = await FoodServices.getAllFoods();
+        if(!foods) throw new Error("No foods found");
+        return reply.code(200).send({
+            statusCode:200,
+            message:"Get all foods is successfully",
+            data:{foods}
+        })
+    }catch(error){
+        console.log("Error get all foods =>" , error);
+        return reply.code(500).send({
+            statusCode:500,
+            message:"Internal Server Error Get All Foods ",
+            error:error.message
+        })
+    }
+}
+
 module.exports = {
     createFood,
+    getAllFoods,
 }
