@@ -3,11 +3,13 @@ const dotenv = require('dotenv').config();
 const connectToDB = require('./config/db');
 // import Routing
 const usersRouter = require('./router/users.router');
+const foodRouters = require('./router/foods.router');
 // Connections database 
 connectToDB();
 
 // router 
 fastify.register(usersRouter)
+fastify.register(foodRouters)
 
 // server
 const server = async ()=>{
