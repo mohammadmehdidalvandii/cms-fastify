@@ -53,7 +53,35 @@ async function getAllFoods (req , reply){
     }
 }
 
+async function deleteFood (req , reply){
+    try{
+        const {id} = req.params;
+        if(!id){
+            return reply.code(400).send({
+                statusCode:400,
+                message:"Invalid id",
+            })
+        }else{
+            const food = await FoodServices.deleteFoodByID(id);
+            if(!food) throw new Error("Food not found");
+            return reply.code(200).send({
+                statusCode:200,
+                message:"Food deleted successfully",
+                data:food
+            })
+        }
+    }catch{
+        console.log("Error Delete Food =>" , error);
+        return reply.code(500).send({
+            statusCode:500,
+            message:"Internal Server Error Delete Food ",
+            error:error.message
+        })
+    }
+}
+
 module.exports = {
     createFood,
     getAllFoods,
+    deleteFood,
 }

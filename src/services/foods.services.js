@@ -20,6 +20,11 @@ async function getFoodByID(id) {
     return food
 }
 
+async function deleteFoodByID(id){
+    const food = await FoodsModel.findOneAndDelete({_id:id});
+    return food
+}
+
 async function updateFood(price , id) {
     const food = await FoodsModel.findOneAndUpdate(
         {_id:id},
@@ -33,5 +38,6 @@ module.exports = {
     createFood,
     getAllFoods,
     getFoodByName,
+    deleteFoodByID,
     getFoodByID,
 }
