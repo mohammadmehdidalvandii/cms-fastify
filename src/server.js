@@ -4,12 +4,14 @@ const connectToDB = require('./config/db');
 // import Routing
 const usersRouter = require('./router/users.router');
 const foodRouters = require('./router/foods.router');
+const productsRouter = require('./router/products.router');
 // Connections database 
 connectToDB();
 
 // router 
 fastify.register(usersRouter)
 fastify.register(foodRouters)
+fastify.register(productsRouter)
 
 // server
 const server = async ()=>{
