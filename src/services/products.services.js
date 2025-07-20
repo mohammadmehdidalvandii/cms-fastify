@@ -26,7 +26,7 @@ async function deleteProductByID (id) {
 }
 
 async function updateProductByID (id, data) {
-    const product = await ProductsModel.findOneAndUpdate({_id:id}, data, {new: true});
+    const product = await ProductsModel.findOneAndUpdate({_id:id}, data ,{new:true});
     return product
 }
 
