@@ -16,12 +16,12 @@ async function getProductByName(name) {
 }
 
 async function getAllProducts () {
-    const product = await ProductsModel.find().sort({createAt:-1});
+    const product = await ProductsModel.find().sort({createdAt:-1});
     return product
 }
 
 async function deleteProductByID (id) {
-    const product = await ProductsModel.findOneAndUpdate({_id:id});
+    const product = await ProductsModel.findOneAndDelete({_id:id});
     return product
 }
 

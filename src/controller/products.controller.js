@@ -47,7 +47,34 @@ async function getAllProduct(req , reply) {
     }
 }
 
+async function deleteProductID (req , reply){
+    try{
+        const {id} = req.params;
+        console.log("id-<" , id)
+        if(!id) return reply.code(400).send({
+            statusCode:400,
+            message:"ID is Required",
+        });
+
+        const product = await ProductServices.deleteProductByID(id);
+        if(!product) throw new Error("Product not found");
+        return reply.code(200).send({
+            statusCode:200,
+            message:"Product deleted successfully",
+            data:product
+        });
+
+    }catch(error){
+        console.log("Error delete Product" , error);
+        return reply.code(500).send({
+            statusCode:500,
+            message:"Server Internal Error -> Error delete Product",
+        })
+    }
+}
+
 module.exports = {
     createProduct,
     getAllProduct,
+    deleteProductID,
 }
