@@ -26,8 +26,28 @@ async function createProduct(req,reply){
             error:error.message
             });
     }
+};
+
+async function getAllProduct(req , reply) {
+    try{    
+        const products = await ProductServices.getAllProducts();
+        if(!products) throw new Error('Not Fount Products');
+       return reply.code(200).send({
+            statusCode:200,
+            message:"Products fetched successfully",
+            data:products
+        })
+    }catch(error){
+        console.log("Error get all Products" , error);
+        return reply.code(500).send({
+            statusCode:500,
+            message:"Server Internal Error -> Error get all Products",
+            error:error.message,
+        })
+    }
 }
 
 module.exports = {
     createProduct,
+    getAllProduct,
 }

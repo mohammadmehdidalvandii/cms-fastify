@@ -16,7 +16,7 @@ async function getProductByName(name) {
 }
 
 async function getAllProducts () {
-    const product = await ProductsModel.find({});
+    const product = await ProductsModel.find().sort({createAt:-1});
     return product
 }
 
