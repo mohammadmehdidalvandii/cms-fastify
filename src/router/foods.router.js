@@ -1,4 +1,6 @@
 const FoodController = require('../controller/foods.controller');
+const adminMiddlewares = require('../middlewares/adminMiddlewares');
+
 
 async function foodRouters (fastify , option){
     fastify.post('/foods/create', {preHandler:adminMiddlewares} , FoodController.createFood);
